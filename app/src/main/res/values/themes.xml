@@ -1,9 +1,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.Parrasdev" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- Aquí personalizamos el tema base sin AppBar. -->
     </style>
 
-    <style name="Theme.Parrasdev" parent="Base.Theme.Parrasdev" />
+    <!-- Tema principal -->
+    <style name="Theme.Parrasdev" parent="Base.Theme.Parrasdev">
+        <item name="colorPrimary">#000000</item> <!-- Color negro para el AppBar -->
+        <item name="colorPrimaryVariant">#000000</item> <!-- Variante del color primario -->
+        <item name="colorOnPrimary">#FFFFFF</item> <!-- Color blanco para el texto y los íconos en el AppBar -->
+    </style>
 </resources>

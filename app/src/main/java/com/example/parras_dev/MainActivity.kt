@@ -10,34 +10,47 @@ import com.google.firebase.auth.FirebaseUser
 
 class MainActivity : ComponentActivity() {
     private lateinit var auth: FirebaseAuth
-    private lateinit var button: Button
-    private lateinit var textView: TextView
+    private lateinit var logoutButton: Button
+    private lateinit var userDetailsTextView: TextView
     private var user: FirebaseUser? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Initialize FirebaseAuth
         auth = FirebaseAuth.getInstance()
-        button = findViewById(R.id.logout)
-        textView = findViewById(R.id.user_details)
         user = auth.currentUser
 
+        // Set up UI elements
+        logoutButton = findViewById(R.id.logout)
+        userDetailsTextView = findViewById(R.id.user_details)
+
+        // Check if the user is logged in
         if (user == null) {
-            val intent = Intent(applicationContext, Login::class.java)
-            startActivity(intent)
-            finish()
-        }
-        else {
-            textView.text = user?.email
+            redirectToLogin()
+        } else {
+            displayUserDetails()
         }
 
-        button.setOnClickListener{
-            auth.signOut()
-            val intent = Intent(applicationContext, Login::class.java)
-            startActivity(intent)
-            finish()
+        // Set logout button action
+        logoutButton.setOnClickListener {
+            signOutUser()
         }
+    }
 
+    private fun redirectToLogin() {
+        val intent = Intent(this, Login::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun displayUserDetails() {
+        userDetailsTextView.text = user?.email ?: "Usuario desconocido"
+    }
+
+    private fun signOutUser() {
+        auth.signOut()
+        redirectToLogin()
     }
 }
